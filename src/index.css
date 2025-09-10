@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Set box sizing for everything */
+  * {
+    box-sizing: border-box;
+  }
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Apply custom styles to html, body, and the root element */
+  html, body, #root {
+    @apply min-h-screen m-0 p-0;
+    line-height: 1.5;
+    font-weight: 400;
+    scroll-behavior: smooth;
+    /* Hide scrollbar (Firefox and IE) */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* Hide scrollbar for WebKit */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Ensure images and buttons behave as expected */
+  img {
+    @apply max-w-full h-auto;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@layer utilities {
+  .shadow-top {
+    box-shadow: 
+       0 -10px 15px -3px rgba(0, 0, 0, 0.1),
+       0 -4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  .shadow-all {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+}
+
+@layer components {
+ 
+}
