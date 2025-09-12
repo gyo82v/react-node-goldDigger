@@ -1,4 +1,3 @@
-import { useState } from "react"
 import {Route, createBrowserRouter, createRoutesFromElements, RouterProvider} from "react-router-dom"
 import Home from "./pages/Home"
 import Transactions from "./pages/Transactions"

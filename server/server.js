@@ -78,7 +78,7 @@ const server = http.createServer(async (req, res) => {
                 res.end(JSON.stringify({error : validation.reason}))
                 return
             }
-            const { name, amount } = validation.value
+            const { name, amount, value } = validation.value
 
             // build transaction object
             const transaction = {
@@ -86,7 +86,7 @@ const server = http.createServer(async (req, res) => {
                 name,
                 date: new Date().toISOString(),
                 amount,
-                value: getRandomValue()
+                value
             }
 
             // append in memory
