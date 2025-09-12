@@ -36,9 +36,10 @@ async function saveTransactions() {
 function validateTransactionBody(body){
   const name = typeof body.name === "string" ? body.name.trim() : ""
   const amount = Number(body.amount)
+  const value = Number(body.value)
   if(!name) return {ok : false, reason : "name is required"}
   if(!Number.isFinite(amount) || amount <= 0) return {ok : false, reason : "amount must be a positive number"}
-  return {ok : true, value : {name, amount}}
+  return {ok : true, value : {name, amount, value}}
 }
 
 await loadTransactions()
