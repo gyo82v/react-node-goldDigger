@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import FormEl from "../components/FormEl"
 
 export default function Home(){
-    const [formdata, setformdata] = useState({name : "", amount : ""})
+    const [formdata, setformdata] = useState({name : "", gold : 0, silver : 0, platinum : 0 })
     const [currentValue, setCurrentValue] = useState({gold: 0, silver : 0, platinum : 0})
     const [error, setError] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -39,17 +39,32 @@ export default function Home(){
         e.preventDefault()
         setError(null)
 
-        const amt = Number(formdata.amount)
+        const amtGold = Number(formdata.gold)
+        const amtSilver = Number(formdata.silver)
+        const amtPlatinum = Number(formdata.platinum)
         if(!formdata.name.trim()) {setError("Name required"); return}
-        if(!Number.isFinite(amt) && amt < 1) {setError("must be a positive numbe"); return}
+        if(!Number.isFinite(amtGold) && amtGold < 0) {setError("must be a positive numbe"); return}
+        if(!Number.isFinite(amtSilver) && amtSilver < 0) {setError("must be a positive numbe"); return}
+        if(!Number.isFinite(amtPlatinum) && amtPlatinum < 0) {setError("must be a positive numbe"); return}
+    
 
-        const snapshotCurrent = currentValue.gold
-        const total = amt * snapshotCurrent
+        const snapshotCurrentGold = currentValue.gold
+        const snapshotCurrentSilver = currentValue.silver
+        const snapshotCurrentPlatinum = currentValue.platinum
+
+        const totalGold = amtGold ? amtGold * snapshotCurrentGold : 0
+        const totalSilver = amtSilver ? amtSilver * snapshotCurrentSilver : 0
+        const totalPlatinum = amtPlatinum ? amtPlatinum * snapshotCurrentPlatinum : 0
+        const total = totalGold + totalSilver + totalPlatinum
 
         const payload = {
             name : formdata.name.trim(),
-            amount : amt,
-            value : snapshotCurrent,
+            goldValue : snapshotCurrentGold,
+            silverValue : snapshotCurrentSilver,
+            platinumValue : snapshotCurrentPlatinum,
+            gold : amtGold,
+            silver : amtSilver,
+            platinum : amtPlatinum,
             total : total.toFixed(3)
         }
 
@@ -61,7 +76,7 @@ export default function Home(){
                 body : JSON.stringify(payload)
             })
             if(!res.ok){throw new Error("response error")}
-            setformdata({name : "", amount : ""})
+            setformdata({name : "", gold : 0, silver : 0, platinum : 0})
         } catch (err) {
             console.error("couldnt update the server: ", err)   
             setError("submission failed")         

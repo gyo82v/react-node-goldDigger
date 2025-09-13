@@ -70,5 +70,17 @@
     "amount": 100,
     "value": 1.612,
     "total": 161.2
+  },
+  {
+    "id": "8vYh_IRx-wawk1ZAecFW-",
+    "name": "das",
+    "date": "13/09/2025",
+    "goldValue": 2.932,
+    "silverValue": 0.938,
+    "platinumValue": 3.1,
+    "gold": 45,
+    "silver": 0,
+    "platinum": 0,
+    "total": 131.94
   }
 ]

@@ -4,7 +4,7 @@ export default function FormEl({currentValue, handleChange, handleSubmit, formda
                   flex flex-col w-11/12 md:w-6/12 xl:w-4/12`
     const fieldset = `border border-amber-300 rounded-lg flex items-center`
     const legend = `text-amber-300 font-semibold mx-4`
-    const p = `mb-2 ml-5 text-amber-300 font-bold text-lg`
+    const p = `text-amber-300 font-bold text-lg `
     const input = `bg-stone-200 p-2 rounded-lg text-stone-700 font-semibold border-2 border-stone-300
                    focus:outline-none focus:ring-2 focus:ring-amber-300 no-spinner
                    focus:bg-stone-300 focus:scale-105 hover:border-stone-500
@@ -14,19 +14,60 @@ export default function FormEl({currentValue, handleChange, handleSubmit, formda
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out
                  hover:scale-110 active:scale-95 hover:shadow-xl hover:from-amber-300 hover:to-amber-500
                  hover:text-stone-800`
+    const div = `flex items-center justify-between w-full p-2 mb-2`
+    const input1 = `bg-stone-200 p-2 rounded-lg text-stone-700 font-semibold border-2 border-stone-300
+                   focus:outline-none focus:ring-2 focus:ring-amber-300 no-spinner w-24
+                   focus:bg-stone-300 focus:scale-105 hover:border-stone-500
+                   transition-transform transition-colors transition-shadow duration-300 ease-in-out`
     return(
         <form className={form} onSubmit={handleSubmit}>
             <fieldset className={fieldset}>
-                <legend className={legend}>Live price</legend>
-                <p className={p}>£{currentValue.gold}</p>
+                <legend className={legend}>Live price gold</legend>
+                <div className={div}>
+                    <p className={p}>£{currentValue.gold}</p>
+                    <input
+                      type="number"
+                      className={input1}
+                      placeholder="Quantity..."
+                      aria-label="Enter the amount of gold"
+                      value={formdata.gold}
+                      onChange={handleChange}
+                      name="gold"
+                      required
+                    />
+                </div>
             </fieldset>
             <fieldset className={fieldset}>
-                <legend className={legend}>Live price</legend>
-                <p className={p}>£{currentValue.silver}</p>
+                <legend className={legend}>Live price silver</legend>
+                <div className={div}>
+                   <p className={p}>£{currentValue.silver}</p>
+                   <input
+                     type="number"
+                     className={input1}
+                     placeholder="Quantity..."
+                     aria-label="Enter the amount of gold"
+                     value={formdata.silver}
+                     onChange={handleChange}
+                     name="silver"
+                     required
+                   />
+                </div>
             </fieldset>
             <fieldset className={fieldset}>
-                <legend className={legend}>Live price</legend>
-                <p className={p}>£{currentValue.platinum}</p>
+                <legend className={legend}>Live price platinum</legend>
+                <div className={div}>
+                    <p className={p}>£{currentValue.platinum}</p>
+                    <input
+                      type="number"
+                      className={input1}
+                      placeholder="Quantity..."
+                      aria-label="Enter the amount of gold"
+                      value={formdata.platinum}
+                      onChange={handleChange}
+                      name="platinum"
+                      required
+                    />
+                </div>
             </fieldset>
             <input 
               type="text"
@@ -36,16 +77,6 @@ export default function FormEl({currentValue, handleChange, handleSubmit, formda
               value={formdata.name}
               onChange={handleChange}
               name="name"
-              required
-            />
-            <input
-              type="number"
-              className={input}
-              placeholder="Enter the amount of gold..."
-              aria-label="Enter the amount of gold"
-              value={formdata.amount}
-              onChange={handleChange}
-              name="amount"
               required
             />
             <button className={btn} type="submit">Buy now</button>

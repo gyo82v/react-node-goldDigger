@@ -1,7 +1,7 @@
 import http from "node:http"
 import path from "node:path"
 import fs from "node:fs/promises"
-import { getRandomValue, getRandomPlatinum, getRandomGold, getRandomSilver } from "./utils.js"
+import { getRandomPlatinum, getRandomGold, getRandomSilver } from "./utils.js"
 import {nanoid} from "nanoid"
 
 const PORT  = 8000
@@ -36,12 +36,15 @@ async function saveTransactions() {
 
 function validateTransactionBody(body){
   const name = typeof body.name === "string" ? body.name.trim() : ""
-  const amount = Number(body.amount)
-  const value = Number(body.value)
+  const gold = Number(body.gold)
+  const silver = Number(body.silver)
+  const platinum = Number(body.platinum)
+  const goldValue = Number(body.goldValue)
+  const silverValue = Number(body.silverValue)
+  const platinumValue= Number(body.platinumValue)
   const total = Number(body.total)
   if(!name) return {ok : false, reason : "name is required"}
-  if(!Number.isFinite(amount) || amount <= 0) return {ok : false, reason : "amount must be a positive number"}
-  return {ok : true, value : {name, amount, value, total}}
+  return {ok : true, value : {name, gold, silver, platinum, goldValue, silverValue, platinumValue, total}}
 }
 
 await loadTransactions()
@@ -81,15 +84,19 @@ const server = http.createServer(async (req, res) => {
                 res.end(JSON.stringify({error : validation.reason}))
                 return
             }
-            const { name, amount, value, total } = validation.value
+            const { name, total, gold, silver, platinum, goldValue, silverValue, platinumValue } = validation.value
 
             // build transaction object
             const transaction = {
                 id: nanoid(),                   
                 name,
                 date: new Date().toLocaleDateString("en-GB"),
-                amount,
-                value,
+                goldValue,
+                silverValue,
+                platinumValue,
+                gold,
+                silver,
+                platinum,
                 total
             }
 
