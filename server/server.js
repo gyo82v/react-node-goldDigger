@@ -1,7 +1,7 @@
 import http from "node:http"
 import path from "node:path"
 import fs from "node:fs/promises"
-import { getRandomValue } from "./utils.js"
+import { getRandomValue, getRandomPlatinum, getRandomGold, getRandomSilver } from "./utils.js"
 import {nanoid} from "nanoid"
 
 const PORT  = 8000
@@ -62,7 +62,7 @@ const server = http.createServer(async (req, res) => {
     if(req.url === "/" && req.method === "GET"){
         res.statusCode = 200
         res.setHeader("Content-Type", "application/json")
-        const payload = {value : getRandomValue()}
+        const payload = {gold : getRandomGold(), silver : getRandomSilver(), platinum : getRandomPlatinum()}
         res.end(JSON.stringify(payload))
         return
     }
@@ -87,7 +87,7 @@ const server = http.createServer(async (req, res) => {
             const transaction = {
                 id: nanoid(),                   
                 name,
-                date: new Date().toISOString(),
+                date: new Date().toLocaleDateString("en-GB"),
                 amount,
                 value,
                 total

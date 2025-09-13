@@ -1,10 +1,74 @@
 [
   {
-    "id": "BGMi630Jx98RA0-2Jmir8",
-    "name": "francesca",
-    "date": "2025-09-13T13:24:16.294Z",
+    "id": "8ES55s8box54i9LG66beC",
+    "name": "jhonny",
+    "date": "13/09/2025",
+    "amount": 45,
+    "value": 1.017,
+    "total": 45.765
+  },
+  {
+    "id": "F2HnPe75pYhxY6eHSCW1J",
+    "name": "Penny",
+    "date": "13/09/2025",
+    "amount": 2,
+    "value": 2.077,
+    "total": 4.154
+  },
+  {
+    "id": "YlL0h1Ber66g6JlsCi2w9",
+    "name": "Danny",
+    "date": "13/09/2025",
+    "amount": 23,
+    "value": 1.962,
+    "total": 45.126
+  },
+  {
+    "id": "9uWARlFdARy_OElL707kK",
+    "name": "Pamela",
+    "date": "13/09/2025",
+    "amount": 7,
+    "value": 1.635,
+    "total": 11.445
+  },
+  {
+    "id": "ctGvtOBH4LzXqV_RcxlOj",
+    "name": "Tony",
+    "date": "13/09/2025",
+    "amount": 8,
+    "value": 2.327,
+    "total": 18.616
+  },
+  {
+    "id": "1ppV5dHapHUNt-HbC1DOq",
+    "name": "Cecilia",
+    "date": "13/09/2025",
+    "amount": 5,
+    "value": 0.702,
+    "total": 3.51
+  },
+  {
+    "id": "RLFUctWDEZn2kQ-wdM7kf",
+    "name": "daniel",
+    "date": "13/09/2025",
+    "amount": 12,
+    "value": 2.951,
+    "total": 35.412
+  },
+  {
+    "id": "h4PfV7ezfmaJeyeCVT10i",
+    "name": "dan",
+    "date": "13/09/2025",
+    "amount": 10,
+    "value": 2.432,
+    "total": 24.32
+  },
+  {
+    "id": "1A89uhFhf0CSwFgfUCKyZ",
+    "name": "Paolo",
+    "date": "13/09/2025",
     "amount": 100,
-    "value": 1.849,
-    "total": 184.9
+    "value": 1.612,
+    "total": 161.2
   }
 ]
