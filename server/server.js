@@ -2,6 +2,7 @@ import http from "node:http"
 import path from "node:path"
 import fs from "node:fs/promises"
 import { getRandomValue } from "./utils.js"
+import {nanoid} from "nanoid"
 
 const PORT  = 8000
 const __dirname = import.meta.dirname
@@ -37,9 +38,10 @@ function validateTransactionBody(body){
   const name = typeof body.name === "string" ? body.name.trim() : ""
   const amount = Number(body.amount)
   const value = Number(body.value)
+  const total = Number(body.total)
   if(!name) return {ok : false, reason : "name is required"}
   if(!Number.isFinite(amount) || amount <= 0) return {ok : false, reason : "amount must be a positive number"}
-  return {ok : true, value : {name, amount, value}}
+  return {ok : true, value : {name, amount, value, total}}
 }
 
 await loadTransactions()
@@ -79,15 +81,16 @@ const server = http.createServer(async (req, res) => {
                 res.end(JSON.stringify({error : validation.reason}))
                 return
             }
-            const { name, amount, value } = validation.value
+            const { name, amount, value, total } = validation.value
 
             // build transaction object
             const transaction = {
-                id: Date.now(),                   
+                id: nanoid(),                   
                 name,
                 date: new Date().toISOString(),
                 amount,
-                value
+                value,
+                total
             }
 
             // append in memory

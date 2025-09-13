@@ -63,7 +63,8 @@ export default function Home(){
         const payload = {
             name : formdata.name.trim(),
             amount : amt,
-            value : snapshotCurrent
+            value : snapshotCurrent,
+            total : total
         }
 
         try {
