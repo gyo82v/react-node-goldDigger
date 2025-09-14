@@ -1,7 +1,7 @@
 import http from "node:http"
 import path from "node:path"
 import fs from "node:fs/promises"
-import { getRandomPlatinum, getRandomGold, getRandomSilver } from "./utils.js"
+import { getRandomValue, serveResponse } from "./utils.js"
 import {nanoid} from "nanoid"
 
 const PORT  = 8000
@@ -54,8 +54,6 @@ const server = http.createServer(async (req, res) => {
     res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
     res.setHeader("Access-Control-Allow-Headers", "Content-Type")
 
-    console.log("req: ", req.url, req.method)
-
     if(req.method === "OPTIONS"){
         res.writeHead(204)
         res.end()
@@ -63,10 +61,12 @@ const server = http.createServer(async (req, res) => {
     }
 
     if(req.url === "/" && req.method === "GET"){
-        res.statusCode = 200
-        res.setHeader("Content-Type", "application/json")
-        const payload = {gold : getRandomGold(), silver : getRandomSilver(), platinum : getRandomPlatinum()}
-        res.end(JSON.stringify(payload))
+        const payload = {
+            gold : getRandomValue(1.5, 3.0), 
+            silver : getRandomValue(0.5, 2.0), 
+            platinum : getRandomValue(2.5, 5.0)
+        }
+        serveResponse(res, 200, "application/json", payload)
         return
     }
 
@@ -79,9 +79,7 @@ const server = http.createServer(async (req, res) => {
             //validate input
             const validation = validateTransactionBody(parsed)
             if(!validation.ok){
-                res.statusCode = 400
-                res.setHeader("Content-Type", "application/json")
-                res.end(JSON.stringify({error : validation.reason}))
+                serveResponse(res, 400, "application/json", {error : validation.reason})
                 return
             }
             const { name, total, gold, silver, platinum, goldValue, silverValue, platinumValue } = validation.value
@@ -109,36 +107,26 @@ const server = http.createServer(async (req, res) => {
             } catch (err) {
                 transactions.pop()
                 console.log("failed to save transaction to disk", err)
-                res.statusCode = 500
-                res.setHeader("Content-Type", "application/json")
-                res.end(JSON.stringify({error : "Failed to persisit transition"}))
+                serveResponse(res, 500, "application/json", {error : "Failed to persisit transition"})
                 return
             }
 
             //success: return created resource
-            res.statusCode = 201
-            res.setHeader("Content-Type", "application/json")
-            res.end(JSON.stringify(transaction))
+            serveResponse(res, 201, "application/json", transaction)
             return
         } catch (err) {
-            res.statusCode = 400
-            res.setHeader("Content-Type", "application/json")
-            res.end(JSON.stringify({ error: "Invalid JSON body" }))
+            serveResponse(res, 400, "application/json", { error: "Invalid JSON body" })
             return
         }
     }
     
     if(req.url === "/transactions" && req.method === "GET"){
-        res.statusCode = 200
-        res.setHeader("Content-Type", "application/json")
-        res.end(JSON.stringify(transactions))
+        serveResponse(res, 200, "application/json", transactions)
         return
     }
 
     //fallback
-    res.statusCode = 404
-    res.setHeader("Content-Type", "text/plain")
-    res.end("Not Founs")
+    serveResponse(res, 404, "text/plain", "Not founds")
 })
 
 server.listen(PORT, () => console.log(`connection established on port ${PORT}`))

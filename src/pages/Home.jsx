@@ -4,13 +4,6 @@ import FormEl from "../components/FormEl"
 export default function Home(){
     const [formdata, setformdata] = useState({name : "", gold : 0, silver : 0, platinum : 0 })
     const [currentValue, setCurrentValue] = useState({gold: 0, silver : 0, platinum : 0})
-    const [error, setError] = useState(null)
-    const [isSubmitting, setIsSubmitting] = useState(false)
-
-
-    //tailwind
-    const container = `p-4 flex flex-col items-center mt-10`
-    //
 
     useEffect(() => {
         let mounted = true
@@ -37,15 +30,14 @@ export default function Home(){
     }
     const handleSubmit = async e => {
         e.preventDefault()
-        setError(null)
 
         const amtGold = Number(formdata.gold)
         const amtSilver = Number(formdata.silver)
         const amtPlatinum = Number(formdata.platinum)
-        if(!formdata.name.trim()) {setError("Name required"); return}
-        if(!Number.isFinite(amtGold) && amtGold < 0) {setError("must be a positive numbe"); return}
-        if(!Number.isFinite(amtSilver) && amtSilver < 0) {setError("must be a positive numbe"); return}
-        if(!Number.isFinite(amtPlatinum) && amtPlatinum < 0) {setError("must be a positive numbe"); return}
+        if(!formdata.name.trim()) {() => console.log("Name required"); return}
+        if(!Number.isFinite(amtGold) && amtGold < 0) {() => console.log("must be a positive number"); return}
+        if(!Number.isFinite(amtSilver) && amtSilver < 0) {() => console.log("must be a positive number"); return}
+        if(!Number.isFinite(amtPlatinum) && amtPlatinum < 0) {() => console.log("must be a positive number"); return}
     
 
         const snapshotCurrentGold = currentValue.gold
@@ -69,7 +61,6 @@ export default function Home(){
         }
 
         try {
-            setIsSubmitting(true)
             const res = await fetch("http://localhost:8000/", {
                 method : "POST",
                 headers : {"Content-Type" : "application/json"},
@@ -78,15 +69,12 @@ export default function Home(){
             if(!res.ok){throw new Error("response error")}
             setformdata({name : "", gold : 0, silver : 0, platinum : 0})
         } catch (err) {
-            console.error("couldnt update the server: ", err)   
-            setError("submission failed")         
-        }finally{
-            setIsSubmitting(false)
+            console.error("couldnt update the server: ", err)       
         }
     }
 
     return(
-        <section className={container}>
+        <section className="p-4 flex flex-col items-center mt-10">
             <FormEl 
               currentValue={currentValue} 
               handleChange={handleChange} 
