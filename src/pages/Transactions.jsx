@@ -20,7 +20,7 @@ export default function Transactions(){
                 const data = await res.json()
                 setTransactions(data)  
             } catch (err) {
-              console.error("unable to fetch the data: ", err)
+              console.error("there was a problem fetching the data: ", err)
             }
         }
         fetchData()
